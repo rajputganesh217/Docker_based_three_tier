@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  # 1. DATA TIER: MySQL Database
+  db:
+    build:
+      context: ./db           # Look for Dockerfile in the 'db' directory
+    container_name: db
+    environment:
+      # These must match the values used in backend/submit.php
+      MYSQL_ROOT_PASSWORD: Pass@123
+      MYSQL_DATABASE: mydatabase
+    # Optional: If you wanted to check the DB from your host machine
+    # ports:
+    #   - "3306:3306"
+    networks:
+      - my-network
+
+  # 2. APPLICATION TIER: PHP-FPM Processor
+  app:
+    build:
+      context: ./app-tier      # Look for Dockerfile in the 'backend' (PHP) directory
+    container_name: app
+    networks:
+      - my-network
+    depends_on:
+      - db # Ensure the database starts before the application
+
+  # 3. PRESENTATION TIER: Nginx Web Server
+  web-server:
+    build:
+      context: ./nginx     # Look for Dockerfile in the 'frontend' directory
+    container_name: web-server
+    ports:
+      - "8080:80"             # Map host port 8080 to container port 80
+    networks:
+      - my-network
+    depends_on:
+      - app # Ensure PHP is ready before Nginx tries to talk to it
+
+networks:
+  # Define the custom network to allow containers to find each other by name (db, app)
+  my-network:
+    driver: bridge
