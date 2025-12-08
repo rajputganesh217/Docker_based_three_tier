@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share Feedback</title>
+    <style>
+        /* Minimal styling to make the form look cleaner than plain HTML */
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #333; }
+        label { display: block; margin-top: 15px; font-weight: bold; color: #555; }
+        input[type="text"], input[type="email"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Ensures padding doesn't affect total width */
+        }
+        textarea { resize: vertical; }
+        .gender-group { margin-top: 15px; }
+        .gender-group label { margin-right: 20px; display: inline-block; font-weight: normal; }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 25px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Share Your Feedback</h1>
+        <p style="text-align: center; color: #777;">Powered by a Dockerized 3-Tier Architecture</p>
+        
+        <form method="post" action="submit.php">
+            
+            <label for="name">Your Full Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+
+            <label for="website">Website URL (Optional):</label>
+            <input type="text" id="website" name="website" placeholder="Website URL">
+
+            <label for="comment">Comments:</label>
+            <textarea id="comment" name="comment" rows="5" placeholder="Tell us what you think..." required></textarea>
+
+            <div class="gender-group">
+                <label>Genders:</label><br>
+                <input type="radio" id="gender-f" name="gender" value="female" required>
+                <label for="gender-f">Female</label>
+                
+                <input type="radio" id="gender-m" name="gender" value="male">
+                <label for="gender-m">Male</label>
+                
+                <input type="radio" id="gender-o" name="gender" value="other">
+                <label for="gender-o">Other</label>
+                
+                <input type="radio" id="gender-p" name="gender" value="prefer_not_to_say">
+                <label for="gender-p">Prefer not to say</label>
+            </div>
+
+            <input type="submit" name="submit" value="Submit Now">
+        </form>
+    </div>
+
+</body>
+</html>
