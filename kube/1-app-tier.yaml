@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-tier
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app-tier
+  template:
+    metadata:
+      labels:
+        app: app-tier
+    spec:
+      containers:
+      - name: app-tier
+        image: rajput2117/app-tier:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9000
+        env:
+        - name: DB_HOST
+          value: "10.0.0.198"   # Your EC2 Private IP
+        - name: DB_USER
+          value: "admin"
+        - name: DB_PASS
+          value: "Pass@123"
+        - name: DB_NAME
+          value: "mydatabase"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-tier-service
+spec:
+  selector:
+    app: app-tier
+  ports:
+    - port: 9000
+      targetPort: 9000

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-tier
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend-tier
+  template:
+    metadata:
+      labels:
+        app: frontend-tier
+    spec:
+      containers:
+      - name: frontend-tier
+        image: rajput2117/frontend-tier:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  selector:
+    app: frontend-tier
+  ports:
+    - port: 80
+      targetPort: 80
+  type: NodePort
